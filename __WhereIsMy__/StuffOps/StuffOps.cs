@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 
 
 
-namespace __WhereIsMy__.App.Delta
+namespace __WhereIsMy__.App.StuffOps
 {
-    public class StuffDelta
+    public class StuffOps
     {
         private string _jsonDataDirectory;
         private string _jsonDataFile = "";
         
-        public StuffDelta(string JsonDataDirectory)
+        public StuffOps(string JsonDataDirectory)
             {
             try
             {
@@ -29,7 +29,7 @@ namespace __WhereIsMy__.App.Delta
                 }
 
                 //derive the filename from the class
-                string jsonFileName = this.GetType().Name.Replace("Delta", "") + ".json";
+                string jsonFileName = this.GetType().Name.Replace("Ops", "") + ".json";
 
                 //establish the path to the data file
                 _jsonDataFile = $@"{JsonDataDirectory}{jsonFileName}";
@@ -37,7 +37,7 @@ namespace __WhereIsMy__.App.Delta
 
             catch (Exception ex)
             {
-                ex.Data.Add("InstantiationError",$"An error occurred while trying to create the delta.");
+                ex.Data.Add("InstantiationError",$"An error occurred while trying to retrieve the file.");
                 throw;
             }
             }

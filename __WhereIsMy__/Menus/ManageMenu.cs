@@ -13,7 +13,7 @@ namespace __WhereIsMy__.App.Menus
         public static string _dataFile;
 
         //get the DB directory and json file
-        public static Delta.StuffDelta _stuffDelta = new Delta.StuffDelta($@"{Program.JsonDataDirectory}Data\");
+        public static StuffOps.StuffOps _stuffOps = new StuffOps.StuffOps($@"{Program.JsonDataDirectory}Data\");
 
         public static List<Stuffs.Stuff> _stuffList { get; set; }
 
@@ -79,7 +79,7 @@ namespace __WhereIsMy__.App.Menus
         public static void GetAll()
         {            
             //get the list of stuff from the service
-            _stuffList = _stuffDelta.GetAll();
+            _stuffList = _stuffOps.GetAll();
 
             //create a DisplayTable object for displaying output like a table
             DisplayTable stuff_ct = new DisplayTable(111);
@@ -113,14 +113,14 @@ namespace __WhereIsMy__.App.Menus
             stuff_ct.PrintLine();
 
             Console.WriteLine();
-            Console.WriteLine(" Press [enter] to return to the previous menu.");
+            Console.WriteLine(" Hit [Enter] to get back to the previous menu.");
             Console.ReadLine();
         }
 
         private static void Add()
         {
             //get the existing list of stuffs
-            _stuffList = _stuffDelta.GetAll();
+            _stuffList = _stuffOps.GetAll();
 
             //instantiate the new stuff object
             Stuffs.Stuff stuff = new Stuffs.Stuff();
@@ -143,7 +143,7 @@ namespace __WhereIsMy__.App.Menus
             stuff.Location_Date = DateTime.Now;
 
             //call the stuff delta and add the stuff
-            stuff = _stuffDelta.Add(stuff, _stuffList);
+            stuff = _stuffOps.Add(stuff, _stuffList);
 
             //give the user a confirmation--pause for a few seconds
             Console.WriteLine();
@@ -160,14 +160,14 @@ namespace __WhereIsMy__.App.Menus
             int.TryParse(Console.ReadLine(), out var stuffID);
 
             //get the list of stuff
-            _stuffList = _stuffDelta.GetAll();
+            _stuffList = _stuffOps.GetAll();
             var stuffToRemove = _stuffList.SingleOrDefault(s => s.Stuff_ID == stuffID);
 
             //make sure stuff with that id exists before attempting to remove it
             if (stuffToRemove != null)
             {
                 //remove the stuff
-                _stuffDelta.Delete(stuffToRemove, _stuffList);
+                _stuffOps.Delete(stuffToRemove, _stuffList);
 
                 //give response to the user and pause for a few seconds
                 Console.WriteLine();

@@ -9,7 +9,7 @@ namespace __WhereIsMy__.App.Menus
     public class MainMenu
     {
         public static string _dataFile;
-        public static Delta.StuffDelta _stuffDelta;
+        public static StuffOps.StuffOps _stuffOps;
 
         public static List<Stuffs.Stuff> _stuffList { get; set; }
 
@@ -19,7 +19,7 @@ namespace __WhereIsMy__.App.Menus
 
             //get the DB directory and json file
             _dataFile = $@"{Program.JsonDataDirectory}Data\";
-            _stuffDelta = new Delta.StuffDelta(_dataFile);
+            _stuffOps = new StuffOps.StuffOps(_dataFile);
 
             Console.Clear();
             Console.WriteLine();
