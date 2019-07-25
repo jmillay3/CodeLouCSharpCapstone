@@ -17,15 +17,18 @@ namespace __WhereIsMy__.App.StuffOps
             {
             try
             {
-                if (Directory.Exists(JsonDataDirectory))
+                try
                 {
+                    Directory.CreateDirectory(JsonDataDirectory);
+                    //if (Directory.Exists(JsonDataDirectory))
+                
                     //get the directory containing the data file
                     _jsonDataDirectory = JsonDataDirectory;
                 }
-                else
+                catch
                 {
-                    //we couldn't find the data directory, throw an error
-                    throw new Exception($"InstantiationError: Unable to create the delta, Can't find the DB directory: {JsonDataDirectory}");
+                    //we couldn't find or create the data directory, throw an error
+                    throw new Exception($"InstantiationError: Unable to retrieve or create the json file directory: {JsonDataDirectory}");
                 }
 
                 //derive the filename from the class
@@ -61,8 +64,10 @@ namespace __WhereIsMy__.App.StuffOps
                     }   
                     else
                     {
-                        //we couldn't find the file, throw an error
-                        throw new Exception($"GetAllError: Unable to find file: {_jsonDataFile}");
+                    //we couldn't find the file, create it!
+                        File.Create(_jsonDataFile).Dispose(); ;
+                    
+                        //throw new Exception($"GetAllError: Unable to find file: {_jsonDataFile}");
                     }
                 }
                 catch (Exception ex)
